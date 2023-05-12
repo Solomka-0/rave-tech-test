@@ -1,22 +1,6 @@
-FROM php:8.2-fpm AS php-base
-ARG WWW_USER
-ARG WWW_GROUP
-
-RUN \
-    apt-get update && apt-get install -y git \
-    libicu-dev \
-    libpq-dev \
-    libzip-dev \
-    unzip \
-    && docker-php-ext-install -j$(nproc) intl opcache pgsql pdo pdo_pgsql zip
-
-# && mkdir /.composer && chown ${WWW_GROUP}:${WWW_USER} /.composer \
-# && ln -s /usr/bin/git /usr/local/bin/git
-
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-
-WORKDIR /var/www/html
-
-FROM php-base as php-dev
-RUN pecl install xdebug-3.2.0 && rm -rf /tmp/pear && docker-php-ext-enable xdebug;
-
+FROM php:8-fpm-alpine3.13 as base
+RUN apk update && apk add g++ make git wget ca-certificates openssl openssh bzip2-dev zlib-dev libpng-dev tzdata fcgi cyrus-sasl-dev mysqli pdo_mysql
+# php8-dev
+RUN update-ca-certificates
+RUN docker-php-ext-install mysqli
+RUN docker-php-ext-install pdo_mysql

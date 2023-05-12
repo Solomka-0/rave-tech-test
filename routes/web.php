@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ShortLinkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+    return view('index');
 });
+
+Route::post('/shortener', [ShortLinkController::class, 'create']);
+
+Route::get('/{page_id}', [ShortLinkController::class, 'show']);
