@@ -1,0 +1,88 @@
+body {
+    background: rgb(243 244 246);
+    --font-family: "DejaVu Sans Light";
+    --font-weight: 600;
+    --alternative-color: rgb(155, 211, 86);
+    font-weight: var(--font-weight);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    padding: 1em 2em;
+}
+
+h1  {
+    margin: 0;
+}
+
+:active, :hover, :focus {
+    outline: 0;
+    outline-offset: 0;
+}
+
+input {
+    border: none;
+    padding: 0.7em;
+    border-radius: 5px;
+    background: var(--alternative-color);
+}
+.shortener {
+    width: 100%;
+    max-width: 30em;
+    padding: 1.5em;
+    --border-radius: 20px;
+}
+
+.shortener__dialog {
+    z-index: 2;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 10px;
+    font-family: var(--font-family);
+}
+
+form > input[type=submit] {
+    font-family: var(--font-family);
+    font-weight: var(--font-weight);
+}
+
+form > input[type=text] {
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    background: rgba(255, 255, 255, 0.3);
+
+    flex: 1;
+}
+
+.shortener__form {
+    display: flex;
+    flex-direction: row;
+    gap: 0.2em;
+}
+
+.shortener__header {
+    margin: 0 1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.bg-alternative {
+    background: var(--alternative-color);
+}
+
+.shortener__dialog.bg-alternative {
+    z-index: 1;
+    margin-top: -11em;
+}
+
+.shortener__dialog.bg-alternative.active {
+    margin-top: -2em;
+    transition: margin-top 2s;
+}
+
+input[type=submit]:hover {
+    background: rgba(80, 148, 54, 0.76);
+    color: white;
+    transition: background-color 200ms, color 200ms;
+}
+

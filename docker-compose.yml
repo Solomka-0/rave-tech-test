@@ -31,9 +31,9 @@ services:
       MYSQL_HOST: ${DB_HOST}
       MYSQL_TCP_PORT: ${DB_PORT}
     volumes:
-       - ./docker/mysql/mysql.conf:/etc/mysql/mysql.conf
+        - ./docker/mysql/:/var/lib/mysql/
     networks:
-      - net-php-mysql
+        - net-php-mysql
   php-fpm:
     build:
       context: docker/php
@@ -46,7 +46,8 @@ services:
       - mysql # condition: service_healthy
     volumes:
       - ./:/var/www/html
-      - ./docker/php:/usr/local/etc/php/conf.d
+      - ./docker/php/conf.d/php.ini:/usr/local/etc/php/conf.d/php.ini
+
     networks:
       - net-php-mysql
       - net-nginx-php
@@ -56,3 +57,4 @@ networks:
     driver: bridge
   net-php-mysql:
     driver: bridge
+
