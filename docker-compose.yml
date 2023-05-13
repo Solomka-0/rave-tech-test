@@ -29,9 +29,9 @@ services:
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_HOST: ${DB_HOST}
-      MYSQL_TCP_PORT: ${DB_PORT}
+      MYSQL_PORT: ${DB_PORT}
     volumes:
-        - ./docker/mysql/:/var/lib/mysql/
+        - mysqldata:/var/lib/mysql/
     networks:
         - net-php-mysql
   php-fpm:
@@ -58,3 +58,5 @@ networks:
   net-php-mysql:
     driver: bridge
 
+volumes:
+    mysqldata:

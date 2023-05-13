@@ -1,6 +1,10 @@
-FROM php:8-fpm-alpine3.13 as base
-RUN apk update && apk add g++ make git wget ca-certificates openssl openssh bzip2-dev zlib-dev libpng-dev tzdata fcgi cyrus-sasl-dev mysqli pdo_mysql
-# php8-dev
-RUN update-ca-certificates
-RUN docker-php-ext-install mysqli
-RUN docker-php-ext-install pdo_mysql
+FROM php:8.2-fpm as base
+RUN \
+    apt-get update && apt-get install -y git \
+    libicu-dev \
+    libpq-dev \
+    libzip-dev \
+    unzip \
+    && docker-php-ext-install -j$(nproc) intl opcache pdo mysqli pdo_mysql zip
+
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer

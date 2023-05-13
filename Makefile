@@ -12,8 +12,6 @@ info:
 	@echo ----------------------- DEVELOPMENT INFO ------------------------------
 	@echo Приложение доступно на:
 	@echo ${APP_URL}:${APP_PORT}/
-	@echo Документация доступна на:
-	@echo ${APP_URL}:${APP_PORT}/docs
 	@echo
 	@echo Базовые команды:
 	@echo make
