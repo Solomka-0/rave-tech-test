@@ -31,7 +31,7 @@ services:
       MYSQL_HOST: ${DB_HOST}
       MYSQL_PORT: ${DB_PORT}
     volumes:
-        - ./docker/mysql/:/var/lib/mysql/
+        - mysqldata:/var/lib/mysql/
     networks:
         - net-php-mysql
   php-fpm:
@@ -58,3 +58,5 @@ networks:
   net-php-mysql:
     driver: bridge
 
+volumes:
+    mysqldata:
