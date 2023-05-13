@@ -12,20 +12,31 @@ use mysql_xdevapi\Exception;
 
 class ResourceController extends Controller
 {
+    /**
+     * Определяет запись соответствующую токену, после чего перенаправляет
+     * @param string $token
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|never
+     */
     public function index(string $token)
     {
         $resource = Resource::find(intval($token, 36));
         return $resource ?
             redirect($resource->src)
-            : 'b';
+            : abort(404);
     }
 
+    /**
+     * Добавляет ресурс в бд и возвращает укороченную ссылку
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function create(Request $request)
     {
         $token = csrf_token();
 
         $input = $request->all();
 
+        // Регулярка для http
         $regex = "/^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$/";
 
         $input = $request->all();
